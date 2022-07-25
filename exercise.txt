@@ -1,0 +1,166 @@
+Last login: Mon Jul 25 07:31:11 on ttys000
+kabdrau@MacBook-Pro ~ % pwd
+/Users/kabdrau
+kabdrau@MacBook-Pro ~ % mkdir learn_git_again
+kabdrau@MacBook-Pro ~ % cd learn_git_again 
+kabdrau@MacBook-Pro learn_git_again % touch third.txt
+kabdrau@MacBook-Pro learn_git_again % git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /Users/kabdrau/learn_git_again/.git/
+kabdrau@MacBook-Pro learn_git_again % ls
+third.txt
+kabdrau@MacBook-Pro learn_git_again % ls -la
+total 0
+drwxr-xr-x   4 kabdrau  staff  128 Jul 25 08:15 .
+drwxr-xr-x+ 27 kabdrau  staff  864 Jul 25 08:15 ..
+drwxr-xr-x   9 kabdrau  staff  288 Jul 25 08:15 .git
+-rw-r--r--   1 kabdrau  staff    0 Jul 25 08:15 third.txt
+kabdrau@MacBook-Pro learn_git_again % git add third.txt 
+kabdrau@MacBook-Pro learn_git_again % git commit -m "adding third.txt"
+[master (root-commit) 18b6e44] adding third.txt
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 third.txt
+kabdrau@MacBook-Pro learn_git_again % git log
+commit 18b6e44eaf1a91c25e39f993b7c9c1b780177178 (HEAD -> master)
+Author: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Date:   Mon Jul 25 08:16:51 2022 -0500
+
+    adding third.txt
+kabdrau@MacBook-Pro learn_git_again % touch fourth.txt
+kabdrau@MacBook-Pro learn_git_again % git add fourth.txt 
+kabdrau@MacBook-Pro learn_git_again % git commit -m "adding fourth.txt"
+[master 9a5166a] adding fourth.txt
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 fourth.txt
+kabdrau@MacBook-Pro learn_git_again % ls 
+fourth.txt	third.txt
+kabdrau@MacBook-Pro learn_git_again % rm third.txt 
+kabdrau@MacBook-Pro learn_git_again % git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    third.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+kabdrau@MacBook-Pro learn_git_again % git add .
+kabdrau@MacBook-Pro learn_git_again % git commit -m "removing third.txt"
+[master 262263d] removing third.txt
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 third.txt
+kabdrau@MacBook-Pro learn_git_again % git log
+commit 262263dd062c375247ad5949053bf27187e3bae4 (HEAD -> master)
+Author: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Date:   Mon Jul 25 08:19:10 2022 -0500
+
+    removing third.txt
+
+commit 9a5166a932240ab8828c76d8f5bea9ef47b97ffc
+Author: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Date:   Mon Jul 25 08:18:14 2022 -0500
+
+    adding fourth.txt
+
+commit 18b6e44eaf1a91c25e39f993b7c9c1b780177178
+Author: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Date:   Mon Jul 25 08:16:51 2022 -0500
+
+    adding third.txt
+kabdrau@MacBook-Pro learn_git_again % 
+kabdrau@MacBook-Pro learn_git_again % git config --global core.pager 'cat'
+kabdrau@MacBook-Pro learn_git_again % git config --global                 
+usage: git config [<options>]
+
+Config file location
+    --global              use global config file
+    --system              use system config file
+    --local               use repository config file
+    --worktree            use per-worktree config file
+    -f, --file <file>     use given config file
+    --blob <blob-id>      read config from given blob object
+
+Action
+    --get                 get value: name [value-pattern]
+    --get-all             get all values: key [value-pattern]
+    --get-regexp          get values for regexp: name-regex [value-pattern]
+    --get-urlmatch        get value specific for the URL: section[.var] URL
+    --replace-all         replace all matching variables: name value [value-pattern]
+    --add                 add a new variable: name value
+    --unset               remove a variable: name [value-pattern]
+    --unset-all           remove all matches: name [value-pattern]
+    --rename-section      rename section: old-name new-name
+    --remove-section      remove a section: name
+    -l, --list            list all
+    --fixed-value         use string equality when comparing values to 'value-pattern'
+    -e, --edit            open an editor
+    --get-color           find the color configured: slot [default]
+    --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+Type
+    -t, --type <type>     value is given this type
+    --bool                value is "true" or "false"
+    --int                 value is decimal number
+    --bool-or-int         value is --bool or --int
+    --bool-or-str         value is --bool or string
+    --path                value is a path (file or directory name)
+    --expiry-date         value is an expiry date
+
+Other
+    -z, --null            terminate values with NUL byte
+    --name-only           show variable names only
+    --includes            respect include directives on lookup
+    --show-origin         show origin of config (file, standard input, blob, command line)
+    --show-scope          show scope of config (worktree, local, global, system, command)
+    --default <value>     with --get, use default value when missing entry
+
+kabdrau@MacBook-Pro learn_git_again % git config --global -l
+core.pager=cat
+kabdrau@MacBook-Pro learn_git_again %

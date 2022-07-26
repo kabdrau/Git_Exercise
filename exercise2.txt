@@ -1,0 +1,166 @@
+Part 1:
+
+What git command creates a branch? git branch -b branch-name
+
+What is the difference between a fast-forward and recursive merge? fast-forward can only happen if there were no commits on the original branch while working on new branch, when git can easily "put" one set of commits on top of another chronologically. Recursive merge is necessary when different commits happen at different time on two branches.
+
+What git command changes to another branch? git checkout branch-name
+
+What git command deletes a branch? git branch -d branch-name
+
+How do merge conflicts happen? when there are files with same name but with different content on 2 branches git can't distinguish what changes to apply
+
+Part2:
+
+Practice with fast forward and recursive merges! Make a branch and add and commit onto it and merge it back into master.
+
+Try to create your own merge conflict by modifying the same file on two separate commits on two separate branches.
+
+kabdrau@MacBook-Pro Unit6_Developer_Fundamentals % mkdir Merge_Conflicts
+kabdrau@MacBook-Pro Unit6_Developer_Fundamentals % cd Merge_Conflicts 
+kabdrau@MacBook-Pro Merge_Conflicts % ls -la
+total 0
+drwxr-xr-x  2 kabdrau  staff   64 Jul 26 06:25 .
+drwxr-xr-x  7 kabdrau  staff  224 Jul 26 06:25 ..
+kabdrau@MacBook-Pro Merge_Conflicts % git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /Users/kabdrau/Desktop/Springboard/Unit6_Developer_Fundamentals/Merge_Conflicts/.git/
+kabdrau@MacBook-Pro Merge_Conflicts % touch first.txt
+kabdrau@MacBook-Pro Merge_Conflicts % nano first.txt 
+kabdrau@MacBook-Pro Merge_Conflicts % cat first.txt 
+Hello World!
+kabdrau@MacBook-Pro Merge_Conflicts % git add first.txt 
+kabdrau@MacBook-Pro Merge_Conflicts % git commit -m "first commit"
+[master (root-commit) c09a066] first commit
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+ create mode 100644 first.txt
+kabdrau@MacBook-Pro Merge_Conflicts % git log --oneline
+c09a066 (HEAD -> master) first commit
+kabdrau@MacBook-Pro Merge_Conflicts % git checkout -b new_branch
+Switched to a new branch 'new_branch'
+kabdrau@MacBook-Pro Merge_Conflicts % ls
+first.txt
+kabdrau@MacBook-Pro Merge_Conflicts % git branch
+  master
+* new_branch
+kabdrau@MacBook-Pro Merge_Conflicts % ls -la
+total 8
+drwxr-xr-x   4 kabdrau  staff  128 Jul 26 06:25 .
+drwxr-xr-x   7 kabdrau  staff  224 Jul 26 06:25 ..
+drwxr-xr-x  12 kabdrau  staff  384 Jul 26 06:27 .git
+-rw-r--r--   1 kabdrau  staff   13 Jul 26 06:26 first.txt
+kabdrau@MacBook-Pro Merge_Conflicts % touch second.txt
+kabdrau@MacBook-Pro Merge_Conflicts % nano second.txt 
+kabdrau@MacBook-Pro Merge_Conflicts % cat second.txt 
+Second Text
+kabdrau@MacBook-Pro Merge_Conflicts % git add .
+kabdrau@MacBook-Pro Merge_Conflicts % git commit -m "added second.txt on new branch"
+[new_branch c55809f] added second.txt on new branch
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+ create mode 100644 second.txt
+kabdrau@MacBook-Pro Merge_Conflicts % git checkout master
+Switched to branch 'master'
+kabdrau@MacBook-Pro Merge_Conflicts % echo Something Else > second.txt
+kabdrau@MacBook-Pro Merge_Conflicts % cat second.txt 
+Something Else
+kabdrau@MacBook-Pro Merge_Conflicts % git add .
+kabdrau@MacBook-Pro Merge_Conflicts % git commit -m "added second.txt on master branch"
+[master 2280861] added second.txt on master branch
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+ create mode 100644 second.txt
+kabdrau@MacBook-Pro Merge_Conflicts % git status
+On branch master
+nothing to commit, working tree clean
+kabdrau@MacBook-Pro Merge_Conflicts % git log --oneline
+2280861 (HEAD -> master) added second.txt on master branch
+c09a066 first commit
+kabdrau@MacBook-Pro Merge_Conflicts % git merge new_branch
+Auto-merging second.txt
+CONFLICT (add/add): Merge conflict in second.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+kabdrau@MacBook-Pro Merge_Conflicts % git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both added:      second.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+kabdrau@MacBook-Pro Merge_Conflicts % git add .
+kabdrau@MacBook-Pro Merge_Conflicts % git commit -m "fixing merge conflict"
+[master 1fe500c] fixing merge conflict
+ Committer: Kuat Abdrau <kabdrau@MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+kabdrau@MacBook-Pro Merge_Conflicts % git log -oneline
+fatal: unrecognized argument: -oneline
+kabdrau@MacBook-Pro Merge_Conflicts % git log --oneline                    
+1fe500c (HEAD -> master) fixing merge conflict
+2280861 added second.txt on master branch
+c55809f (new_branch) added second.txt on new branch
+c09a066 first commit
+kabdrau@MacBook-Pro Merge_Conflicts % git branch
+* master
+  new_branch
+kabdrau@MacBook-Pro Merge_Conflicts % cat second.txt 
+Something Else
+Second Text
+
